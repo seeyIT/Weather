@@ -4,26 +4,31 @@ import { StackNavigator } from 'react-navigation';
 
 export default class Login extends React.Component{
 
-	static navigationOptions = 
-  {
+	constructor(){
+		super();
+		this.state = {
+			username: '',
+			password: '',
+		}
+	}
+
+	static navigationOptions = {
       title: 'Login',
       headerStyle: {
-        backgroundColor: '#ff00ff',
+        backgroundColor: '#0000ff',
       },
       headerTitleStyle:{
         color: '#fff',
       }
-  };
+  	};
 
 	login = () => {
-		console.log(1);
+		console.log(this.state.username);
+		console.log(this.state.password);
 	}
 
-	render()
-	{
+	render() {
 		const { navigate } = this.props.navigation;
-		// console.log(this.props.navigation);
-		// console.log(1)
 		return  (
 			<KeyboardAvoidingView  style={styles.wrapper}>
 				<View style = {styles.container}>
@@ -36,7 +41,9 @@ export default class Login extends React.Component{
 						placeholder = "Login"
 						placeholderTextColor = "#FFFFFF"
 						returnKeyType = {"next"}
-						onSubmitEditing = {() => this.refs.passwordInput.focus()}/>
+						onSubmitEditing = {() => this.refs.passwordInput.focus()}
+						onChangeText={(username) => this.setState({username})}
+    					value={this.state.username}/>
 					<TextInput 
 						style = {styles.input}
 						underlineColorAndroid = 'transparent'
@@ -45,10 +52,12 @@ export default class Login extends React.Component{
 						secureTextEntry = {true}
 						returnKeyType = "go"
 						ref = 'passwordInput'
+						onChangeText={(password) => this.setState({password})}
+    					value={this.state.password}
 						/>
 					<TouchableOpacity
 						style = {styles.loginButton}
-						onPress = {() => navigate('Details')} >
+						onPress = {() => this.login()} >
 						<Text style = {styles.loginText}>
 							Login
 						</Text>

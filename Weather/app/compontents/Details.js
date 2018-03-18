@@ -3,35 +3,37 @@ import { StyleSheet, View, Text, Image  } from 'react-native';
 
 export default class Register extends React.Component{
 
-	constructor()
+	constructor(props)
 	{
-		super();
+		super(props);
+		console.log(this.props.navigation.state.params.weather[0].main);
+		
+		const data = this.props.navigation.state.params;
 		this.state = {
-			latitude: -150.23,
-			longitude: -140.25,
-			city: 'New York City',
-			main: 'rain',
-			description: 'duzo deszucz pada bo jest zima i jest cieplo',
-			temp: -43.4,
-			minTemp: -43.2,
-			maxTemp: -11.3,
-			pressure: 1025,
-			humidity: 99,
-			sunrise: 1531212323,
-			sunset: 2323232323,
+			latitude: data.coord.lat,
+			longitude: data.coord.lon,
+			city: data.name,
+			main: data.weather[0].main,
+			description: data.weather[0].description,
+			temp: data.main.temp - 272.15,
+			minTemp: data.main.temp_min - 272.15,
+			maxTemp: data.main.temp_max - 272.15,
+			pressure: data.main.pressure,
+			humidity: data.main.humidity,
+			sunrise: data.sys.sunrise,
+			sunset: data.sys.sunset,
 		}
 	}
 
-	static navigationOptions = 
-  {
-      title: 'as',
+	static navigationOptions = {
+      title: 'Details',
       headerStyle: {
-        backgroundColor: '#ff00ff',
+        backgroundColor: '#0000ff',
       },
       headerTitleStyle:{
         color: '#fff',
       }
-  };
+  	};
 
 	render()
 	{

@@ -2,10 +2,10 @@ import React from 'react';
 import { StyleSheet, View, Text, Image, TextInput, TouchableOpacity, KeyboardAvoidingView  } from 'react-native';
 
 export default class SelectLocation extends React.Component{
-	constructor()
-	{
+
+	constructor() {
 		super();
-		this.state = {
+		 this.state = {
 			city: "tak",
 	  		link1: 'http://api.openweathermap.org/data/2.5/weather?q=',
 			link2: '&APPID=9bf4ef853d9537441f36f8b5b8ed4cfb',
@@ -14,29 +14,34 @@ export default class SelectLocation extends React.Component{
 			success: false
 		}	
 	}
-	
+	static navigationOptions = {
+      title: 'location',
+      headerStyle: {
+        backgroundColor: '#0000ff',
+      },
+      headerTitleStyle:{
+        color: '#fff',
+      }
+	};
+	  
 	checkWeatherWithCity = () => {
-				
-		// this.setState({ city : 'Cracow'});
-
 		this.getJson();
-		//console.log(this.state.data);
-		if(this.state.success)
-		{
-			console.log(this.state.data.cod);
-			
-			if(this.state.data.cod !== "404")
+		setTimeout(() => {
+			if(this.state.success)
 			{
-				console.log(this.state.data);
-
+				console.log(this.state.data.cod);
+				
+				if(this.state.data.cod == "200")
+				{
+					this.props.navigation.navigate('Details', this.state.data);
+				}
 			}
-		}
+		}, 1000);		
 		
 		this.state.success = false;
 	}
 
-	getJson = () =>
-	{
+	getJson = () =>	{
 		var link = this.state.link1 + this.state.city + this.state.link2;
 		console.log(link);
 		fetch(link)
@@ -49,8 +54,8 @@ export default class SelectLocation extends React.Component{
 	}
 
 
-	render()
-	{
+	render(){
+		console.log(this.props.navigation);
 		return  (
 			<KeyboardAvoidingView  style={styles.wrapper}>
 				<View style = {styles.container}>

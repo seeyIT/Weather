@@ -1,22 +1,17 @@
-import React, { Component } from 'react';
-import {
-  Platform,
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  AppRegistry
-} from 'react-native';
+import React from 'react';
 
 import Login from './Login';
-import Details from './Details'
-import SelectLocation from './SelectLocation'
+import Register from './Register';
+import Details from './Details';
+import SelectLocation from './SelectLocation';
+
 import { StackNavigator } from 'react-navigation';
 
 const Screens = StackNavigator({
-    SelectLocation: {screen: SelectLocation},
-    Login: {screen: Login},    
-    Details: {screen: Details},
+  Login: {screen: Login},    
+  Register: {screen: Register},
+  SelectLocation: {screen: SelectLocation},
+  Details: {screen: Details},
     
 })
 

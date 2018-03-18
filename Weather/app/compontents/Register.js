@@ -3,14 +3,35 @@ import { StyleSheet, View, Text, Image, TextInput, TouchableOpacity, KeyboardAvo
 
 export default class Register extends React.Component{
 
+	constructor() {
+		super();
+		this.state = {
+			username: '',
+			password1: '',
+			password2: '',
+		}
+	}
+	
+	static navigationOptions = {
+		title: 'Details',
+		headerStyle: {
+		  backgroundColor: '#0000ff',
+		},
+		headerTitleStyle:{
+		  color: '#fff',
+		}
+	};
+
 	register = () => {
-		console.log(1);
+		console.log(this.state.username);
+		console.log(this.state.password1);
+		console.log(this.state.password2);
+
 	}
 
-	render()
-	{
+	render() {
 		return  (
-			<KeyboardAvoidingView behavior="padding" style={styles.wrapper}>
+			<KeyboardAvoidingView  style={styles.wrapper}>
 				<View style = {styles.container}>
 					<Image 
 						style = {styles.logoImage} 
@@ -21,7 +42,9 @@ export default class Register extends React.Component{
 						placeholder = "Login"
 						placeholderTextColor = "#FFFFFF"
 						returnKeyType = "next"
-						onSubmitEditing = {() => this.refs.passwordInput.focus()}/>
+						onSubmitEditing = {() => this.refs.passwordInput.focus()}
+						onChangeText = {(username) => this.setState({username})}
+						value = {this.state.username}/>
 					<TextInput 
 						style = {styles.input}
 						underlineColorAndroid = 'transparent'
@@ -31,6 +54,8 @@ export default class Register extends React.Component{
 						returnKeyType = "next"
 						ref = 'passwordInput'
 						onSubmitEditing = {() => this.refs.passwordInput2.focus()}
+						onChangeText = {(password1) => this.setState({password1})}
+						value = {this.state.password1}
 						/>
 					<TextInput 
 						style = {styles.input}
@@ -40,6 +65,8 @@ export default class Register extends React.Component{
 						secureTextEntry = {true}
 						returnKeyType = "go"
 						ref = 'passwordInput2'
+						onChangeText = {(password2) => this.setState({password2})}
+						value = {this.state.password2}
 						/>
 					<TouchableOpacity
 						style = {styles.loginButton} 
