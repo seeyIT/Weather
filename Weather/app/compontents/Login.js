@@ -1,7 +1,19 @@
 import React from 'react';
 import { StyleSheet, View, Text, Image, TextInput, TouchableOpacity, KeyboardAvoidingView  } from 'react-native';
+import { StackNavigator } from 'react-navigation';
 
 export default class Login extends React.Component{
+
+	static navigationOptions = 
+  {
+      title: 'Login',
+      headerStyle: {
+        backgroundColor: '#ff00ff',
+      },
+      headerTitleStyle:{
+        color: '#fff',
+      }
+  };
 
 	login = () => {
 		console.log(1);
@@ -9,6 +21,9 @@ export default class Login extends React.Component{
 
 	render()
 	{
+		const { navigate } = this.props.navigation;
+		// console.log(this.props.navigation);
+		// console.log(1)
 		return  (
 			<KeyboardAvoidingView  style={styles.wrapper}>
 				<View style = {styles.container}>
@@ -32,7 +47,8 @@ export default class Login extends React.Component{
 						ref = 'passwordInput'
 						/>
 					<TouchableOpacity
-						style = {styles.loginButton} >
+						style = {styles.loginButton}
+						onPress = {() => navigate('Details')} >
 						<Text style = {styles.loginText}>
 							Login
 						</Text>

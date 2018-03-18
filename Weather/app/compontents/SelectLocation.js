@@ -23,6 +23,8 @@ export default class SelectLocation extends React.Component{
 		//console.log(this.state.data);
 		if(this.state.success)
 		{
+			console.log(this.state.data.cod);
+			
 			if(this.state.data.cod !== "404")
 			{
 				console.log(this.state.data);
@@ -46,14 +48,6 @@ export default class SelectLocation extends React.Component{
 		   })
 	}
 
-	checkWeatherWithLocation = () => {
-		console.log(2);
-	}
-	
-	getLocation = () => 
-	{
-		
-	}
 
 	render()
 	{
@@ -79,14 +73,14 @@ export default class SelectLocation extends React.Component{
 							Check weather!
 						</Text>
 					</TouchableOpacity >
-					<Text style = {styles.text}>or</Text>
+					{/* <Text style = {styles.text}>or</Text>
 					<TouchableOpacity
 						style = {styles.checkWeatherButton}
 						onPress = {this.getLocation} >
 						<Text style = {styles.text}>
 							Use your device!
 						</Text>
-					</TouchableOpacity >
+					</TouchableOpacity > */}
 				</View>
 			</KeyboardAvoidingView>
 			)

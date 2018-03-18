@@ -22,7 +22,16 @@ export default class Register extends React.Component{
 		}
 	}
 
-	
+	static navigationOptions = 
+  {
+      title: 'as',
+      headerStyle: {
+        backgroundColor: '#ff00ff',
+      },
+      headerTitleStyle:{
+        color: '#fff',
+      }
+  };
 
 	render()
 	{
