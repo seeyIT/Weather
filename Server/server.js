@@ -11,7 +11,18 @@ const server = http.createServer((req, res) => {
 	
 	var url_parts = url.parse(req.url, true);
 	var query = url_parts.query;
-	if(query.login != undefined){
+
+	if(query.action === "login"){
+		login(query.login, query.password, function(result){
+			if(result){
+				res.end('1');
+			}
+			else{
+				res.end('0');
+			}
+		});
+	}
+	else if(query.action === "register"){
 		checkIfUserExists(query.login, function (result){
 			if(result){
 				insertUser(query.login,query.password);
@@ -23,6 +34,10 @@ const server = http.createServer((req, res) => {
 			}
 		})
 	}
+	else{
+		res.end('-1');
+	}
+		
 	
 });
 
@@ -74,6 +89,32 @@ function insertUser(login, password) {
 	});
 }
 
+function login(login,password,callback) {
+	MongoClient.connect("mongodb://localhost:27017/weather", function(err, db) {
+	if(err) { 
+		return console.dir(err); 
+	}
+
+	var dbo = db.db("weather");
+  	var collection = dbo.collection('users');
+
+	collection.find({"login" : login }, { _id: 0, login: 0, password: 1 }).toArray(function(err, result) {
+	    if (err) {
+	    	throw err;
+	    }
+	    if(result[0].password === password) {
+	    	
+	    	callback(true);
+	    }
+	    else{
+	    	callback(false);
+	    }
+	});
+	
+	db.close();
+});	 
+
+}
 //init database and table
 MongoClient.connect("mongodb://localhost:27017/weather", function(err, db) {
 	if(err){ 
@@ -86,6 +127,7 @@ MongoClient.connect("mongodb://localhost:27017/weather", function(err, db) {
 	    	throw err;
 	    }
 	});
+	db.close();
 });	
 
 server.listen(port, hostname, () => {
