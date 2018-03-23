@@ -24,7 +24,8 @@ export default class SelectLocation extends React.Component{
         color: '#fff',
       }
 	};
-	  
+	
+
 	checkWeatherWithCity = () => {
 		this.getJson();
 		setTimeout(() => {

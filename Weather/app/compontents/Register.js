@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, Image, TextInput, TouchableOpacity, KeyboardAvoidingView  } from 'react-native';
+import { StyleSheet, View, Text, Image, TextInput, TouchableOpacity, KeyboardAvoidingView, Keyboard  } from 'react-native';
 import md5 from "react-native-md5";
 import * as Progress from 'react-native-progress';
 
@@ -47,6 +47,7 @@ export default class Register extends React.Component{
 
 				if(responseJson == "1") {
 					this.setState({message: <Text style = {[styles.text, styles.greenText]}>Account created! </Text>});
+					Keyboard.dismiss();
 				} else {
 					this.setState({message: <Text style = {[styles.text, styles.redText]}>Login is taken! </Text>});
 				}

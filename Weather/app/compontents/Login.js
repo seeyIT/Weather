@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, Image, TextInput, TouchableOpacity, KeyboardAvo
 import { StackNavigator } from 'react-navigation';
 import md5 from "react-native-md5";
 import * as Progress from 'react-native-progress';
+import { NavigationActions } from 'react-navigation';
 
 export default class Login extends React.Component{
 
@@ -37,14 +38,23 @@ export default class Login extends React.Component{
 				this.setState({processing: false})
 				
 				if(responseJson == "1") {
-					this.setState({message: ""})
-					this.props.navigation.navigate('SelectLocation');
+					this.setState({message: ""});
+					//clear stack, user can't back to login.
+					const resetAction = NavigationActions.reset({
+						index: 0,
+						actions: [NavigationActions.navigate({ routeName: 'SelectLocation' })],
+					});
+					this.props.navigation.dispatch(resetAction);
 				}
 				else {
 					this.setState({message: "Wrong data!"})
 				}
 			})
 			
+	}
+
+	register = () => {
+		this.props.navigation.navigate('Register');
 	}
 
 	render() {
@@ -91,6 +101,12 @@ export default class Login extends React.Component{
 						onPress = {() => this.login()} >
 						<Text style = {styles.text}>
 							Login
+						</Text>
+					</TouchableOpacity >
+					<TouchableOpacity
+						onPress = {() => this.register()} >
+						<Text style = {styles.text}>
+							Register now!
 						</Text>
 					</TouchableOpacity >
 				</View>
