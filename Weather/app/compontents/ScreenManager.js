@@ -8,14 +8,16 @@ import SelectLocation from './SelectLocation';
 import { StackNavigator } from 'react-navigation';
 
 const Screens = StackNavigator({
-  Login: {screen: Login},   
-  
+  SelectLocation: {screen: SelectLocation},
+
   Register: {screen: Register},
   
-  SelectLocation: {screen: SelectLocation},
+  Login: {screen: Login},   
   
   
   Details: {screen: Details},
+  
+  
     
 })
 

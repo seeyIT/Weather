@@ -11,15 +11,15 @@ export default class Register extends React.Component{
 			username: '',
 			password1: '',
 			password2: '',			
-			message:<Text></Text>,
-			processing: false,
+			message: <Text></Text>,
+			processing: false
 		}
 	}
 	
 	static navigationOptions = {
 		title: 'Register',
 		headerStyle: {
-		  backgroundColor: '#0000ff',
+		  backgroundColor: '#2e2ee6',
 		},
 		headerTitleStyle:{
 		  color: '#fff',
@@ -74,7 +74,7 @@ export default class Register extends React.Component{
 						style = {styles.input} 
 						underlineColorAndroid = 'transparent'
 						placeholder = "Login"
-						placeholderTextColor = "#FFFFFF"
+						placeholderTextColor = "#000000"
 						returnKeyType = "next"
 						onSubmitEditing = {() => this.refs.passwordInput.focus()}
 						onChangeText = {(username) => this.setState({username})}
@@ -83,7 +83,7 @@ export default class Register extends React.Component{
 						style = {styles.input}
 						underlineColorAndroid = 'transparent'
 						placeholder = "Password"
-						placeholderTextColor = "#FFFFFF"
+						placeholderTextColor = "#000000"
 						secureTextEntry = {true}
 						returnKeyType = "next"
 						ref = 'passwordInput'
@@ -95,7 +95,7 @@ export default class Register extends React.Component{
 						style = {styles.input}
 						underlineColorAndroid = 'transparent'
 						placeholder = "Re-password"
-						placeholderTextColor = "#FFFFFF"
+						placeholderTextColor = "#000000"
 						secureTextEntry = {true}
 						returnKeyType = "go"
 						ref = 'passwordInput2'

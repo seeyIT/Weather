@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, Image, TextInput, TouchableOpacity, KeyboardAvoidingView  } from 'react-native';
+import { StyleSheet, View, Text, Image, TextInput, TouchableOpacity, KeyboardAvoidingView, Keyboard  } from 'react-native';
 
 export default class SelectLocation extends React.Component{
 
@@ -11,13 +11,14 @@ export default class SelectLocation extends React.Component{
 			link2: '&APPID=9bf4ef853d9537441f36f8b5b8ed4cfb',
 			data: "nice",
 			city: '',
-			success: false
+			success: false,
+			errorMessage: ''
 		}	
 	}
 	static navigationOptions = {
-      title: 'location',
+      title: 'Location',
       headerStyle: {
-        backgroundColor: '#0000ff',
+        backgroundColor: '#2e2ee6',
       },
       headerTitleStyle:{
         color: '#fff',
@@ -27,13 +28,15 @@ export default class SelectLocation extends React.Component{
 	checkWeatherWithCity = () => {
 		this.getJson();
 		setTimeout(() => {
-			if(this.state.success)
-			{
+			if(this.state.success) {
 				console.log(this.state.data.cod);
 				
-				if(this.state.data.cod == "200")
-				{
+				if(this.state.data.cod == "200") {
+					Keyboard.dismiss();
 					this.props.navigation.navigate('Details', this.state.data);
+				}
+				else if(this.state.data.cod == "404") {
+					this.setState({errorMessage: "City doesn't exist!"});
 				}
 			}
 		}, 1000);		
@@ -53,21 +56,21 @@ export default class SelectLocation extends React.Component{
 		   })
 	}
 
-
 	render(){
 		console.log(this.props.navigation);
 		return  (
 			<KeyboardAvoidingView  style={styles.wrapper}>
 				<View style = {styles.container}>
-					<Text>{this.state.initialPosition}</Text>
+					
 					<Image 
 						style = {styles.logoImage} 
 						source = {require('./../images/logo.png')} />
+					<Text style = {[styles.text, styles.redText]}>{this.state.errorMessage}</Text>
 					<TextInput 
 						style = {styles.input} 
 						underlineColorAndroid = 'transparent'
 						placeholder = "Type your city"
-						placeholderTextColor = "#FFFFFF"
+						placeholderTextColor = "#000000"
 						autoCorrect = {false}
 						onChangeText = { (city) => this.setState({city})}
 						/>
@@ -77,15 +80,7 @@ export default class SelectLocation extends React.Component{
 						<Text style = {styles.text}>
 							Check weather!
 						</Text>
-					</TouchableOpacity >
-					{/* <Text style = {styles.text}>or</Text>
-					<TouchableOpacity
-						style = {styles.checkWeatherButton}
-						onPress = {this.getLocation} >
-						<Text style = {styles.text}>
-							Use your device!
-						</Text>
-					</TouchableOpacity > */}
+					</TouchableOpacity >					
 				</View>
 			</KeyboardAvoidingView>
 			)
@@ -120,6 +115,9 @@ const styles = StyleSheet.create({
 		color: '#000000',
 		fontSize: 24
 	},
+	redText: {
+		color: 'red'
+	},
 	logoImage: {
 		width: 128,
 		height: 128,
@@ -133,6 +131,6 @@ const styles = StyleSheet.create({
 		margin: 4,
 		paddingVertical: 4,
 		paddingHorizontal:16,
-		borderRadius: 20
+		borderRadius: 20,
 	}
 })
