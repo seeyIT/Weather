@@ -102,8 +102,11 @@ function login(login,password,callback) {
 	    if (err) {
 	    	throw err;
 	    }
-	    if(result[0].password === password) {
-	    	
+	    
+	    if (result == ""){	    	
+	    	callback(false);
+	    }
+	    else if(result[0].password === password) {
 	    	callback(true);
 	    }
 	    else{
